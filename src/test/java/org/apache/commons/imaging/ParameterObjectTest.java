@@ -45,6 +45,17 @@ public final class ParameterObjectTest {
     }
     
     /**
+     * Test the building on an parameter object using {@code null} as value.
+     * This should cause an IllegalArgumentException
+     */
+    @Test(expected=IllegalArgumentException.class)
+    public void testBuildWithNullAsValue() {
+        ParameterObject.build()
+            // violation of contract - value must not null
+            .setBinaryConstant(Parameter.PARAM_KEY_STRICT, null);
+    }
+    
+    /**
      * Test the building on an parameter object using an valid value.
      * This should cause an IllegalArgumentException
      */

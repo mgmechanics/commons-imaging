@@ -141,13 +141,14 @@ public final class ParameterObject {
         /**
          * Set an BinaryConstant as value - checks necessary
          * @param parameter 
-         * @param value the BinaryConstant must have a size {@literal > 0}
-         * otherwise an IllegalArgumentException is thrown
+         * @param value the BinaryConstant must not {@code null} and must have
+         * a size {@literal > 0} otherwise an IllegalArgumentException is thrown
          * @return 
          */
         public ParameterBuilder setBinaryConstant(final Parameter parameter,
                 final BinaryConstant value) {
             //check value
+            checkIfValueIsNull(value);
             if (value.size() == 0) {
                 throw new IllegalArgumentException(
                     "The size of the BinaryConstant must be > 0."
@@ -155,6 +156,19 @@ public final class ParameterObject {
             }
             this.parameterValues.put(parameter,value);
             return this;
+        }
+        
+        /**
+         * Checks if the given value is {@code null} - if it is {@code null}
+         * then an IllegalStateException is thrown.
+         * @param parameter the parameter to check
+         */
+        private void checkIfValueIsNull(final Object object) {
+            if (object == null) {
+                throw new IllegalArgumentException(
+                    "The value for any parameter must not null."
+                );
+            }
         }
     }
 }
