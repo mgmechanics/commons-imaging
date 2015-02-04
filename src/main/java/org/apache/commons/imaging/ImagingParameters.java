@@ -21,7 +21,6 @@
 package org.apache.commons.imaging;
 
 import java.util.EnumMap;
-import org.apache.commons.imaging.common.BinaryConstant;
 
 /**
  * Class to provide parameters as requested at IMAGING-159.
@@ -29,7 +28,7 @@ import org.apache.commons.imaging.common.BinaryConstant;
  */
 public final class ImagingParameters {
     // this is an error message
-    private static final String wrongTypeError = 
+    private static final String msgWrongTypeError = 
         "This parameter is present in this parameter object "
         + "but the stored value does not match the expected type.";
     
@@ -55,38 +54,32 @@ public final class ImagingParameters {
     }
     
     /**
-     * Get an int value. If there is no value present for this parameter or
-     * if there is a value present but it is not an int value an
-     * IllegalStateException is thrown.
+     * Get the value for any present parameter.
+     * If there is no value present for this parameter or if there is a value
+     * present but the value can not cast to type T an IllegalStateException is thrown.
+     * @param <T> expected type of the parameter value (must not provided, Java will inference it)
      * @param parameter
-     * @return 
+     * @param clazz expected class of the parameter value like Integer.class
+     * @return value of type T
      */
-    public int getInt(final Parameter parameter) {
-       checkIfParameterPresent(parameter);
-        try {
-            return (Integer) this.parameterValues.get(parameter);
-        }
-        catch (ClassCastException ex) {
-            throw new IllegalStateException(wrongTypeError);
-        }
-}
-    
-    /**
-     * Get an BinaryConstant value. 
-     * If there is no value present for this parameter or
-     * if there is a value present but it is not an BinaryConstant value an
-     * IllegalStateException is thrown.
-     * @param parameter
-     * @return 
-     */
-    public BinaryConstant getBinaryConstant(final Parameter parameter) {
+    public <T> T getValue(final Parameter parameter, final Class<T> clazz) {
         checkIfParameterPresent(parameter);
         try {
-            return (BinaryConstant) this.parameterValues.get(parameter);
+            Object value = this.parameterValues.get(parameter);
+            return clazz.cast(value);
         }
         catch (ClassCastException ex) {
-            throw new IllegalStateException(wrongTypeError);
+            throw new IllegalStateException(msgWrongTypeError + "; " + ex.getLocalizedMessage());
         }
+    }
+    
+    /**
+     * Check if the given parameter is present.
+     * @param parameter
+     * @return {@code true} if the given parameter is present, {@false} otherwise.
+     */
+    public boolean isParameterPresent(final Parameter parameter) {
+        return this.parameterValues.containsKey(parameter);
     }
     
     /**
@@ -101,7 +94,6 @@ public final class ImagingParameters {
             );
         }
     }
-    
     
     /**
      * This class is part of the builder pattern used to set an arbitrary
@@ -128,32 +120,13 @@ public final class ImagingParameters {
         }
         
         /**
-         * set an int value - no checks necessary
+         * Set the value for any available parameter.
          * @param parameter
          * @param value 
-         * @return  
+         * @return another ParameterBuilder so that you can chain setValue(...).setValue(...).get()
          */
-        public ParameterBuilder setInt(final Parameter parameter, final int value) {
-            this.parameterValues.put(parameter,value);
-            return this;
-        }
-        
-        /**
-         * Set an BinaryConstant as value - checks necessary
-         * @param parameter 
-         * @param value the BinaryConstant must not {@code null} and must have
-         * a size {@literal > 0} otherwise an IllegalArgumentException is thrown
-         * @return 
-         */
-        public ParameterBuilder setBinaryConstant(final Parameter parameter,
-                final BinaryConstant value) {
-            //check value
+        public ParameterBuilder setValue(final Parameter parameter, final Object value) {
             checkIfValueIsNull(value);
-            if (value.size() == 0) {
-                throw new IllegalArgumentException(
-                    "The size of the BinaryConstant must be > 0."
-                );
-            }
             this.parameterValues.put(parameter,value);
             return this;
         }
