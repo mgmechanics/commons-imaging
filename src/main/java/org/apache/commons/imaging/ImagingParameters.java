@@ -27,7 +27,7 @@ import org.apache.commons.imaging.common.BinaryConstant;
  * Class to provide parameters as requested at IMAGING-159.
  * Each instance of this class is immutable.
  */
-public final class ParameterObject {
+public final class ImagingParameters {
     // this is an error message
     private static final String wrongTypeError = 
         "This parameter is present in this parameter object "
@@ -40,7 +40,7 @@ public final class ParameterObject {
      * Get a new parameter object
      * @param parameterValues 
      */
-    private ParameterObject(final EnumMap<Parameter, Object> parameterValues) {
+    private ImagingParameters(final EnumMap<Parameter, Object> parameterValues) {
         this.parameterValues = parameterValues;
     }
     
@@ -123,8 +123,8 @@ public final class ParameterObject {
          * Return the parameter object with the values collected by the builder.
          * @return an parameter object
          */
-        public ParameterObject get() {
-            return new ParameterObject(this.parameterValues);
+        public ImagingParameters get() {
+            return new ImagingParameters(this.parameterValues);
         }
         
         /**

@@ -28,14 +28,14 @@ import static org.junit.Assert.*;
 /**
  * Some tests to see if the class under test works.
  */
-public final class ParameterObjectTest {
+public final class ImagingParametersTest {
     /**
      * Test the building on an parameter object using only valid values
      * and the access to the stored parameter values.
      */
     @Test
     public void testBuildWithValidValues() {
-        ParameterObject testObject = ParameterObject.build()
+        ImagingParameters testObject = ImagingParameters.build()
             .setInt(Parameter.PARAM_KEY_EXIF, 21)
             .setBinaryConstant(Parameter.PARAM_KEY_STRICT,
                     JpegConstants.JFIF0_SIGNATURE)
@@ -50,7 +50,7 @@ public final class ParameterObjectTest {
      */
     @Test(expected=IllegalArgumentException.class)
     public void testBuildWithNullAsValue() {
-        ParameterObject.build()
+        ImagingParameters.build()
             // violation of contract - value must not null
             .setBinaryConstant(Parameter.PARAM_KEY_STRICT, null);
     }
@@ -61,7 +61,7 @@ public final class ParameterObjectTest {
      */
     @Test(expected=IllegalArgumentException.class)
     public void testBuildWithInvalidValues() {
-        ParameterObject.build()
+        ImagingParameters.build()
             // violation of contract - BinaryConstant::size must > 0
             .setBinaryConstant(Parameter.PARAM_KEY_STRICT,
                     getEmptyBinaryConstant());
@@ -73,7 +73,7 @@ public final class ParameterObjectTest {
      */
     @Test(expected=IllegalStateException.class)
     public void testGetIntWithExceptionForNotPresent() {
-        ParameterObject testObject = ParameterObject.build()
+        ImagingParameters testObject = ImagingParameters.build()
             .setInt(Parameter.PARAM_KEY_EXIF, 21)
             .get();
         // throws IllegalStateException because this parameter is not present
@@ -85,7 +85,7 @@ public final class ParameterObjectTest {
      */
     @Test(expected=IllegalStateException.class)
     public void testGetIntWithExceptionForWrongType() {
-        ParameterObject testObject = ParameterObject.build()
+        ImagingParameters testObject = ImagingParameters.build()
             .setInt(Parameter.PARAM_KEY_EXIF, 21)
             .setBinaryConstant(Parameter.PARAM_KEY_STRICT,
                     JpegConstants.JFIF0_SIGNATURE)
@@ -100,7 +100,7 @@ public final class ParameterObjectTest {
      */
     @Test(expected=IllegalStateException.class)
     public void testGetBinaryConstantWithExceptionForNotPresent() {
-        ParameterObject testObject = ParameterObject.build()
+        ImagingParameters testObject = ImagingParameters.build()
             .setBinaryConstant(Parameter.PARAM_KEY_STRICT,
                     JpegConstants.JFIF0_SIGNATURE)
             .get();
@@ -113,7 +113,7 @@ public final class ParameterObjectTest {
      */
     @Test(expected=IllegalStateException.class)
     public void testGetBinaryConstantWithExceptionForWrongType() {
-        ParameterObject testObject = ParameterObject.build()
+        ImagingParameters testObject = ImagingParameters.build()
             .setInt(Parameter.PARAM_KEY_EXIF, 21)
             .setBinaryConstant(Parameter.PARAM_KEY_STRICT,
                     JpegConstants.JFIF0_SIGNATURE)
