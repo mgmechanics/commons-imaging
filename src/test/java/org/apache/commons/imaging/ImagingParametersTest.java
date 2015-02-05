@@ -34,11 +34,11 @@ public final class ImagingParametersTest {
     @Test
     public void testBuildWithValidValues() {
         ImagingParameters testObject = ImagingParameters.build()
-            .setValue(Parameter.PARAM_KEY_EXIF, 21)
-            .setValue(Parameter.PARAM_KEY_STRICT, "yes")
+            .setValue(Parameter.EXIF, 21)
+            .setValue(Parameter.STRICT, "yes")
             .get();
-        assertEquals(Integer.valueOf(21), testObject.getValue(Parameter.PARAM_KEY_EXIF, Integer.class));
-        assertEquals("yes", testObject.getValue(Parameter.PARAM_KEY_STRICT, String.class));
+        assertEquals(Integer.valueOf(21), testObject.getValue(Parameter.EXIF, Integer.class));
+        assertEquals("yes", testObject.getValue(Parameter.STRICT, String.class));
     }
     
     /**
@@ -49,7 +49,7 @@ public final class ImagingParametersTest {
     public void testBuildWithNullAsValue() {
         ImagingParameters.build()
             // violation of contract - value must not null
-            .setValue(Parameter.PARAM_KEY_STRICT, null);
+            .setValue(Parameter.STRICT, null);
     }
     
     /**
@@ -58,11 +58,11 @@ public final class ImagingParametersTest {
     @Test(expected=IllegalStateException.class)
     public void testGetValueWithExceptionForNotPresent() {
         ImagingParameters testObject = ImagingParameters.build()
-            .setValue(Parameter.PARAM_KEY_EXIF, 21)
+            .setValue(Parameter.EXIF, 21)
             .get();
         // throws IllegalStateException because this parameter is not present
         // class for value doesn't matter in this case
-        testObject.getValue(Parameter.PARAM_KEY_STRICT, Object.class);
+        testObject.getValue(Parameter.STRICT, Object.class);
     }
     
     /**
@@ -71,9 +71,9 @@ public final class ImagingParametersTest {
     @Test(expected=IllegalStateException.class)
     public void testGetValueWithExceptionForWrongType() {
         ImagingParameters testObject = ImagingParameters.build()
-            .setValue(Parameter.PARAM_KEY_EXIF, 21)
+            .setValue(Parameter.EXIF, 21)
             .get();
         // throws IllegalStateException because this parameter is not of type Integer
-        testObject.getValue(Parameter.PARAM_KEY_STRICT, String.class);
+        testObject.getValue(Parameter.STRICT, String.class);
     }
 }

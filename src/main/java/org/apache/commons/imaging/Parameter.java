@@ -32,7 +32,7 @@ public enum Parameter {
      * <p>
      * Valid values: Boolean.TRUE and Boolean.FALSE.
      */
-    PARAM_KEY_VERBOSE, // "VERBOSE";
+    VERBOSE, // "VERBOSE";
 
     /**
      * Parameter key. Used to hint the filename when reading from a byte array
@@ -46,7 +46,7 @@ public enum Parameter {
      * 
      * @see java.io.InputStream
      */
-    PARAM_KEY_FILENAME, // "FILENAME";
+    FILENAME, // "FILENAME";
 
     /**
      * Parameter key. Used in write operations to indicate desired image format.
@@ -57,7 +57,7 @@ public enum Parameter {
      * 
      * @see org.apache.commons.imaging.ImageFormats
      */
-    PARAM_KEY_FORMAT, // "FORMAT";
+    FORMAT, // "FORMAT";
 
     /**
      * Parameter key. Used in write operations to indicate desired compression
@@ -73,7 +73,7 @@ public enum Parameter {
      * 
      * @see org.apache.commons.imaging.formats.tiff.constants.TiffConstants
      */
-    PARAM_KEY_COMPRESSION, // "COMPRESSION";
+    COMPRESSION, // "COMPRESSION";
 
     BUFFERED_IMAGE_FACTORY, // "BUFFERED_IMAGE_FACTORY";
 
@@ -87,7 +87,7 @@ public enum Parameter {
      * 
      * @see org.apache.commons.imaging.formats.tiff.constants.TiffConstants
      */
-    PARAM_KEY_READ_THUMBNAILS, // "READ_THUMBNAILS";
+    READ_THUMBNAILS, // "READ_THUMBNAILS";
 
     /**
      * Parameter key. Indicates whether to throw exceptions when parsing invalid
@@ -99,7 +99,7 @@ public enum Parameter {
      * 
      * @see org.apache.commons.imaging.formats.tiff.constants.TiffConstants
      */
-    PARAM_KEY_STRICT, // "STRICT";
+    STRICT, // "STRICT";
 
     /**
      * Parameter key.
@@ -111,7 +111,7 @@ public enum Parameter {
      * 
      * @see org.apache.commons.imaging.formats.tiff.write.TiffOutputSet
      */
-    PARAM_KEY_EXIF, // "EXIF";
+    EXIF, // "EXIF";
 
     /**
      * Parameter key.
@@ -121,7 +121,7 @@ public enum Parameter {
      * Valid values: String of XMP XML.
      * <p>
      */
-    PARAM_KEY_XMP_XML, // "XMP_XML";
+    XMP_XML, // "XMP_XML";
 
     /**
      * Parameter key. Used in write operations to indicate the desired pixel
@@ -132,5 +132,5 @@ public enum Parameter {
      * 
      * @see org.apache.commons.imaging.PixelDensity
      */
-    PARAM_KEY_PIXEL_DENSITY; // "PIXEL_DENSITY";
+    PIXEL_DENSITY; // "PIXEL_DENSITY";
 }
