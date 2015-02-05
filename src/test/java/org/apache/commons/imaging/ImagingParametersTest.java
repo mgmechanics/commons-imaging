@@ -20,8 +20,6 @@
 
 package org.apache.commons.imaging;
 
-import org.apache.commons.imaging.common.BinaryConstant;
-import org.apache.commons.imaging.formats.jpeg.JpegConstants;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
